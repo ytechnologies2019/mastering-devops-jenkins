@@ -43,6 +43,7 @@ pipeline {
                 sshCommand remote: remote, command: "sudo docker pull yinmonphyo/node"
                 }
             stage('prod-build') { 
+                sshCommand remote: remote, command: "sudo docker stop node && docker rm node"
                 sshCommand remote: remote, command: "sudo docker run -dp 3000:3000 --name node yinmonphyo/node "
                 }
             }
