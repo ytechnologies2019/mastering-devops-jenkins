@@ -40,7 +40,7 @@ pipeline {
             remote.allowAnyHosts = true
             stage('pull') {
                 sshCommand remote: remote, command: "sudo docker login -u yinmonphyo -p ymmp@1234"
-                sshCommand remote: remote, command: "sudo docker pull yinmonphyo/node"
+                sshCommand remote: remote, command: "sudo docker pull yinmonphyo/node" 
                 }
             stage('prod-build') { 
                 sshCommand remote: remote, command: "sudo docker stop node && docker rm node"
