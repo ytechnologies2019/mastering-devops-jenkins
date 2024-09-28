@@ -38,7 +38,7 @@ pipeline {
                         remote.host = '13.82.4.25'
                         remote.user = "${SERVER_USERNAME}"
                         remote.password = "${SERVER_PASSWORD}"
-                        remote.allowAnyHosts = true
+                        remote.allowAnyHosts = true 
 
                         stage('Pull') {
                             sshCommand remote: remote, command: "sudo docker login -u yinmonphyo -p ymmp@1234" // Consider using environment variables for this as well
