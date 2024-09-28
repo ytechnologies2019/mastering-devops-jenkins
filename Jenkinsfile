@@ -28,7 +28,7 @@ pipeline {
                 sh 'docker push yinmonphyo/node'
             }
         }
-        //Deployment
+        //Deployment to srv
         stage('Deployment') {
             steps {
                 script {
