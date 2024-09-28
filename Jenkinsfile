@@ -32,12 +32,14 @@ pipeline {
      stage ('Deployment') {
         steps {
             script {
-            def remote = [:]
-            remote.name = 'prod-srv'
-            remote.host = '13.82.4.25'
-            remote.user = 'student'
-            remote.password = 'Ytechnologies@123!@#'
-            remote.allowAnyHosts = true
+                withCredentials([usernamePassword(credentialsId: 'srv-login', passwordVariable: 'Username', usernameVariable: 'Password')]) {
+                    def remote = [:]
+                    remote.name = 'prod-srv'
+                    remote.host = '13.82.4.25'
+                    remote.user = "${Username}"
+                    remote.password = "${Password}"
+                    remote.allowAnyHosts = true
+                }
             stage('pull') {
                 sshCommand remote: remote, command: "sudo docker login -u yinmonphyo -p ymmp@1234"
                 sshCommand remote: remote, command: "sudo docker pull yinmonphyo/node" 
@@ -49,8 +51,8 @@ pipeline {
             }
         }
     }
+}
 
-    }
     post { 
         always { 
             sh 'docker stop node'
