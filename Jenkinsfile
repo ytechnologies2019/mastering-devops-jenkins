@@ -42,7 +42,7 @@ pipeline {
                 sshCommand remote: remote, command: "sudo docker login -u yinmonphyo -p ymmp@1234"
                 sshCommand remote: remote, command: "sudo docker pull yinmonphyo/node"
                 }
-            stage('prod-build') {
+            stage('prod-build') { 
                 sshCommand remote: remote, command: "sudo docker run -dp 3000:3000 --name node yinmonphyo/node "
                 }
             }
