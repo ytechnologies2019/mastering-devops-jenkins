@@ -14,7 +14,7 @@ pipeline {
         stage('DockerLogin') {
             steps {
                 // sh 'docker login -u $DOCKERHUB_LOGIN_USR -p $DOCKERHUB_LOGIN_PSW' //Password can be visible
-                sh 'echo $DOCKERHUB_LOGIN_PSW | sudo docker login -u $DOCKERHUB_LOGIN_USR --password-stdin' //USR & PSW are default 
+                sh 'echo $DOCKERHUB_LOGIN_PSW | docker login -u $DOCKERHUB_LOGIN_USR --password-stdin' //USR & PSW are default 
             }
         }
 
