@@ -1,10 +1,20 @@
 pipeline {
     agent any
+    environment {     
+        DOCKERHUB_LOGIN= credentials('DOCKERHUB') //EnvironmentVariableFromCredentials    
+    } 
 
     stages {
         stage('Pull') {
             steps {
                 git branch: 'main', url: 'https://github.com/ytechnologies2019/to-do-app.git'
+            }
+        }
+
+        stage('DockerLogin') {
+            steps {
+                // sh 'docker login -u $DOCKERHUB_LOGIN_USR -p $DOCKERHUB_LOGIN_PSW' //Password can be visible
+                sh 'echo $DOCKERHUB_LOGIN_PSW | sudo docker login -u $DOCKERHUB_LOGIN_USR --password-stdin' //USR & PSW are default 
             }
         }
 
