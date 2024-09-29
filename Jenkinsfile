@@ -11,13 +11,6 @@ pipeline {
             }
         }
 
-        stage('DockerLogin') {
-            steps {
-                // sh 'docker login -u $DOCKERHUB_LOGIN_USR -p $DOCKERHUB_LOGIN_PSW' //Password can be visible
-                sh 'echo $DOCKERHUB_LOGIN_PSW | docker login -u $DOCKERHUB_LOGIN_USR --password-stdin' //USR & PSW are default 
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'docker build -t getting-started-app .'
@@ -33,7 +26,7 @@ pipeline {
 
         stage('Create Image') {
             steps {
-                sh 'docker login -u yinmonphyo -p ymmp@1234'
+                sh 'echo $DOCKERHUB_LOGIN_PSW | docker login -u $DOCKERHUB_LOGIN_USR --password-stdin'
                 sh 'docker container commit node yinmonphyo/node'
                 sh 'docker push yinmonphyo/node'
             }
@@ -51,7 +44,7 @@ pipeline {
                         remote.allowAnyHosts = true 
 
                         stage('Pull') {
-                            sshCommand remote: remote, command: "sudo docker login -u yinmonphyo -p ymmp@1234" // Consider using environment variables for this as well
+                            sshCommand remote: remote, command: "echo $DOCKERHUB_LOGIN_PSW | sudo docker login -u $DOCKERHUB_LOGIN_USR --password-stdin" // Consider using environment variables for this as well
                             sshCommand remote: remote, command: "sudo docker pull yinmonphyo/node"
                         }
 
